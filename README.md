@@ -21,18 +21,7 @@ It will not guess. If the answer is not in the document, it says so.
 
 ## How to run it
 
-There are two ways depending on what you have available.
-
-### Option 1 — Hugging Face Spaces (deployed, no setup)
-
-Hit the url
-[Deployed]()
-
----
-
-### Option 2 — Google Colab
-
-If you want to try it quickly without installing anything locally, use the notebook.
+### Google Colab
 
 1. Open `swiggy_rag_colab.ipynb` in [Google Colab](https://colab.research.google.com)
 2. Set runtime to **T4 GPU** — Runtime → Change runtime type
@@ -65,27 +54,6 @@ The reason for the hybrid is that dense retrieval understands semantic meaning w
 The top 3 ranked chunks are joined together as context and passed to `deepset/roberta-base-squad2` along with your question. This model does extractive QA — it reads the context and highlights the exact text span that answers the question. It does not generate new sentences. The answer is always a direct quote from the retrieved chunks.
 
 If the model's confidence score falls below 5%, the system treats that as "no clear answer found" and tells you to check the source chunks manually.
-
----
-
-## Project structure
-
-```
-swiggy-rag/
-├── app.py                     FastAPI server — upload and query endpoints
-├── rag_engine.py              RAG logic — extraction, chunking, FAISS, BM25, QA
-├── static/
-│   └── index.html             Web UI (single self-contained file, no build step)
-├── setup.bat                  Windows one-click setup
-├── setup.sh                   Mac/Linux one-click setup
-├── requirements.txt           Python dependencies
-└── swiggy_rag_colab.ipynb     Colab fallback notebook
-
-swiggy-rag-hf-spaces/
-├── app.py                     Gradio app for Hugging Face Spaces
-├── requirements.txt
-└── README.md                  HF Spaces config + description
-```
 
 ---
 
